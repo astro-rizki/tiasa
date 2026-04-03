@@ -1,0 +1,12 @@
+{
+  "name": "Tiasa",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:fe": "npm -w apps/frontend run dev",
+    "dev:be": "npm -w apps/backend run dev",
+    "dev": "concurrently \"npm run dev:fe\" \"npm run dev:be\""
+  }
+}
