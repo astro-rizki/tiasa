@@ -8,7 +8,7 @@ import { createPageUrl } from "@/utils";
 const historyData = [
   {
     blend_id: "blend_001",
-    title: "Warm Woody Evening",
+    title: "Fresh Citrus Morning",
     timestamp: "JUST NOW",
     cover: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=400&h=300&fit=crop",
     scent_count: 12,
@@ -18,8 +18,8 @@ const historyData = [
   },
   {
     blend_id: "blend_002",
-    title: "Fresh Citrus Morning",
-    timestamp: "3H AGO",
+    title: "Warm Woody Evening",
+    timestamp: "12H AGO",
     cover: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?w=400&h=300&fit=crop",
     scent_count: 8,
     heating_s: 2.1,
