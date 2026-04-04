@@ -114,7 +114,7 @@ export default function DeltaPartner({ darkMode }) {
           transition={{ type: "spring", stiffness: 300, damping: 35 }}
         >
           {FLIGHTS.map((flight) => (
-            <div key={flight.id} className="w-full flex-shrink-0 pr-0">
+            <div key={flight.id} className="w-full flex-shrink-0 pr-3">
               <button
                 onClick={() => setSelectedFlight(flight)}
                 className="w-full rounded-2xl overflow-hidden text-left transition-transform active:scale-[0.98] relative"
