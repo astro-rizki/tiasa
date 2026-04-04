@@ -4,10 +4,11 @@ import { Camera, Settings, Sun, Moon, Shield, Bell, Info, Edit2, Check, X } from
 import FeaturedYSL from "../components/profile/FeaturedYSL";
 import DeltaPartner from "../components/profile/DeltaPartner";
 import { toast } from "sonner";
+import { useTheme } from "../lib/ThemeContext";
 
 export default function Profile() {
+  const { darkMode, setDarkMode } = useTheme();
   const [profileImage, setProfileImage] = useState("/images/profile.png");
-  const [darkMode, setDarkMode] = useState(true);
   const [username, setUsername] = useState("Alexandra Chen");
   const [isEditingName, setIsEditingName] = useState(false);
   const [tempUsername, setTempUsername] = useState(username);
