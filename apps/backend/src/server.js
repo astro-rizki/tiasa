@@ -8,9 +8,9 @@ const wss = new WebSocket.Server({ port: PORT });
 wss.on('connection', (ws, req) => {
   const path = req.url;
 
-  if (path === '/esp') {
+  if (path === '/ws/esp') {
     handleEsp(ws);
-  } else if (path === '/browser') {
+  } else if (path === '/ws/browser') {
     handleBrowser(ws);
   } else {
     console.warn('[Server] Unknown path:', path);

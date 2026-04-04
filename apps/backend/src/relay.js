@@ -1,7 +1,6 @@
 const WebSocket = require('ws');
 const clients = require('./clients');
 
-const TIMEOUT_MS = 500; // auto OFF kalau koneksi putus
 let safetyTimeout = null;
 
 function handleEsp(ws) {
@@ -38,7 +37,6 @@ function handleBrowser(ws) {
   console.log('[Browser] Connected, total:', clients.getBrowserCount() + 1);
   clients.addBrowser(ws);
 
-  // Kasih tau browser status ESP saat ini
   ws.send(JSON.stringify({
     type: 'esp_status',
     connected: clients.isEspConnected(),
@@ -48,16 +46,15 @@ function handleBrowser(ws) {
     const message = msg.toString();
     console.log('[Browser] Message:', message);
 
-    const esp = clients.getEsp();
-    if (clients.isEspConnected()) {
-      esp.send(message);
-      resetSafetyTimeout(message);
-    } else {
+    if (!clients.isEspConnected()) {
       ws.send(JSON.stringify({
         type: 'error',
         message: 'ESP not connected',
       }));
+      return;
     }
+
+    handleBrowserMessage(message);
   });
 
   ws.on('close', () => {
@@ -70,28 +67,43 @@ function handleBrowser(ws) {
   });
 }
 
-// Auto OFF kalau browser disconnect saat tombol ditekan
-function resetSafetyTimeout(message) {
+function handleBrowserMessage(message) {
   try {
     const parsed = JSON.parse(message);
-    if (parsed.state === 'ON') {
+
+    if (parsed.type === 'spray') {
+      const duration = Number(parsed.duration_ms) || 5000;
+      console.log(`[Relay] Spraying for ${duration}ms`);
+
+      const esp = clients.getEsp();
+      if (!esp) return;
+
+      // Kirim ON
+      esp.send(JSON.stringify({ type: 'button', state: 'ON' }));
+      console.log('[Relay] Sent ON');
+
+      // Clear timeout sebelumnya kalau ada
       clearTimeout(safetyTimeout);
+
+      // Auto OFF setelah durasi
       safetyTimeout = setTimeout(() => {
-        triggerSafetyOff();
-      }, TIMEOUT_MS);
-    } else if (parsed.state === 'OFF') {
-      clearTimeout(safetyTimeout);
+        console.log(`[Relay] ${duration}ms passed, sending OFF`);
+        if (clients.isEspConnected()) {
+          clients.getEsp().send(JSON.stringify({ type: 'button', state: 'OFF' }));
+          console.log('[Relay] Sent OFF');
+        }
+      }, duration);
     }
+
   } catch (e) {
-    // ignore parse error
+    console.error('[Relay] Parse error:', e.message);
   }
 }
 
 function triggerSafetyOff() {
   clearTimeout(safetyTimeout);
   if (clients.isEspConnected()) {
-    const offCommand = JSON.stringify({ type: 'button', state: 'OFF' });
-    clients.getEsp().send(offCommand);
+    clients.getEsp().send(JSON.stringify({ type: 'button', state: 'OFF' }));
     console.log('[Safety] Auto OFF triggered');
   }
 }
