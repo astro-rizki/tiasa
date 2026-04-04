@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2, Sparkles } from "lucide-react";
 
-export default function ApplyButton({ disabled, sliderValues, selectedItems, onComplete, onHeatingStart }) {
+// @ts-ignore
+export default function ApplyButton({ disabled, sliderValues, selectedItems, onComplete, onHeatingStart, onSprayStart }) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
@@ -46,6 +47,7 @@ export default function ApplyButton({ disabled, sliderValues, selectedItems, onC
   };
 
   const handleSpray = () => {
+    onSprayStart?.(); 
     // Vapor burst animation
     const sprayOverlay = document.createElement("div");
     sprayOverlay.className = "fixed inset-0 pointer-events-none z-50";

@@ -7,6 +7,7 @@ import ScentSliders from "../components/blend/ScentSliders";
 import ApplyButton from "../components/blend/ApplyButton";
 import PerfumeRecommendations from "../components/blend/PerfumeRecommendations";
 import CollectionTabs from "../components/blend/CollectionTabs";
+import { useDeviceSocket } from '../hooks/useDeviceSocket';
 
 export default function Blend() {
   const [sliderValues, setSliderValues] = useState({
@@ -73,6 +74,7 @@ export default function Blend() {
   };
 
   const hasInput = Object.values(sliderValues).some(v => v > 0) || selectedItems.length > 0;
+  const { sendSpray } = useDeviceSocket();
 
   return (
     <div className="max-w-md mx-auto min-h-screen">
@@ -98,8 +100,8 @@ export default function Blend() {
       </div>
 
       {/* MEMS Mixer Sliders */}
-      <ScentSliders 
-        values={sliderValues} 
+      <ScentSliders
+        values={sliderValues}
         onChange={setSliderValues}
         onSaveClick={handleSaveClick}
       />
@@ -136,9 +138,8 @@ export default function Blend() {
         </div>
         <button
           onClick={() => setAutoOptimize(!autoOptimize)}
-          className={`w-11 h-6 rounded-full transition-all duration-300 relative ${
-            autoOptimize ? "bg-[#D4AF37]" : "bg-neutral-700"
-          }`}
+          className={`w-11 h-6 rounded-full transition-all duration-300 relative ${autoOptimize ? "bg-[#D4AF37]" : "bg-neutral-700"
+            }`}
         >
           <motion.div
             className="w-5 h-5 rounded-full bg-white absolute top-0.5"
@@ -151,6 +152,7 @@ export default function Blend() {
       {/* Apply / Spray Button */}
       <div className="mb-4">
         <ApplyButton
+          onSprayStart={() => sendSpray(5000)}
           disabled={!hasInput}
           sliderValues={sliderValues}
           selectedItems={selectedItems}
@@ -182,7 +184,7 @@ export default function Blend() {
             transition={{ duration: 0.3 }}
           >
             <h3 className="font-serif-luxury text-xl text-white mb-4">Save Blend</h3>
-            
+
             <input
               type="text"
               placeholder="Enter blend name..."

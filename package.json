@@ -2,11 +2,14 @@
   "name": "Tiasa",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "apps/*"
   ],
   "scripts": {
     "dev:fe": "npm -w apps/frontend run dev",
     "dev:be": "npm -w apps/backend run dev",
     "dev": "concurrently \"npm run dev:fe\" \"npm run dev:be\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }
