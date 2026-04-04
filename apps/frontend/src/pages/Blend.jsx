@@ -6,6 +6,7 @@ import SelectedPerfume from "../components/blend/SelectedPerfume";
 import ScentSliders from "../components/blend/ScentSliders";
 import ApplyButton from "../components/blend/ApplyButton";
 import PerfumeRecommendations from "../components/blend/PerfumeRecommendations";
+import DeltaBlendSection from "../components/blend/DeltaBlendSection";
 import CollectionTabs from "../components/blend/CollectionTabs";
 import { useDeviceSocket } from '../hooks/useDeviceSocket';
 
@@ -163,6 +164,9 @@ export default function Blend() {
 
       {/* Perfume Recommendations */}
       <PerfumeRecommendations />
+
+      {/* Delta Exclusive Collection */}
+      <DeltaBlendSection />
 
       {/* Collection Tabs (Scent Library, History, Playlists) */}
       <div className="mb-8">
