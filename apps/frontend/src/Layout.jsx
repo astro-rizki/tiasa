@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "./utils";
 import { Home, FlaskConical, BarChart3, User } from "lucide-react";
+import { useTheme } from "./lib/ThemeContext";
 
 const navItems = [
   { name: "Home", icon: Home, page: "Home" },
@@ -11,8 +12,9 @@ const navItems = [
 ];
 
 export default function Layout({ children, currentPageName }) {
+  const { darkMode } = useTheme();
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-white flex flex-col">
+    <div className={`min-h-screen text-white flex flex-col transition-colors duration-300 ${darkMode ? "bg-[#0A0A0A]" : "bg-white"}`}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
