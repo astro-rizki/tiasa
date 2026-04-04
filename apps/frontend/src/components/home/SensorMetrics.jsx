@@ -102,8 +102,8 @@ export default function SensorMetrics({ type = "sensing", sensingData, deviceMet
                 />
                 <p className="font-mono text-3xl font-bold text-white mb-1">
                   {metric.value}
-                  {metric.unit && <span className="text-sm text-neutral-500">{metric.unit}</span>}
                 </p>
+                <p>{metric.unit && <span className="text-sm text-neutral-500">{metric.unit}</span>}</p>
                 <p className="text-[10px] uppercase tracking-wider text-neutral-500 line-clamp-2">
                   {metric.label}
                 </p>

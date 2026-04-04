@@ -9,7 +9,7 @@ import SensorMetrics from "../components/home/SensorMetrics";
 import AIInsightPanel from "../components/home/AIInsightPanel";
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState("sensing");
+  const [activeTab, setActiveTab] = useState("device");
   const [isRefreshing, setIsRefreshing] = useState(false);
   
   // Mock device data
