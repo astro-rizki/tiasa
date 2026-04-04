@@ -78,12 +78,13 @@ function handleBrowserMessage(message) {
       const esp = clients.getEsp();
       if (!esp) return;
 
+      // Clear timeout lama dulu sebelum apapun
+      clearTimeout(safetyTimeout);
+      safetyTimeout = null;
+
       // Kirim ON
       esp.send(JSON.stringify({ type: 'button', state: 'ON' }));
       console.log('[Relay] Sent ON');
-
-      // Clear timeout sebelumnya kalau ada
-      clearTimeout(safetyTimeout);
 
       // Auto OFF setelah durasi
       safetyTimeout = setTimeout(() => {
@@ -92,6 +93,7 @@ function handleBrowserMessage(message) {
           clients.getEsp().send(JSON.stringify({ type: 'button', state: 'OFF' }));
           console.log('[Relay] Sent OFF');
         }
+        safetyTimeout = null;
       }, duration);
     }
 
