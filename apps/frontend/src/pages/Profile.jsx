@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Camera, Settings, Sun, Moon, Shield, Bell, Info, Edit2, Check, X } from "lucide-react";
 import FeaturedYSL from "../components/profile/FeaturedYSL";
+import DeltaPartner from "../components/profile/DeltaPartner";
 import { toast } from "sonner";
 
 export default function Profile() {
@@ -180,6 +181,9 @@ export default function Profile() {
 
       {/* Featured from YSL */}
       <FeaturedYSL />
+
+      {/* Delta Partner Flights */}
+      <DeltaPartner darkMode={darkMode} />
 
       {/* Account Actions */}
       <motion.div
