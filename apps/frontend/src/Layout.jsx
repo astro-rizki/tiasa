@@ -94,47 +94,39 @@ export default function Layout({ children, currentPageName }) {
           color: #1a1a1a !important;
         }
 
-        /* Section headings & labels that live outside glass-card at page level */
-        .light-mode .font-serif-luxury.text-white  { color: #1a1a1a !important; }
-        .light-mode p.text-neutral-500             { color: #888 !important; }
-        .light-mode p.text-neutral-400             { color: #666 !important; }
+        /* Section headings outside glass-card */
+        .light-mode .font-serif-luxury.text-white { color: #1a1a1a !important; }
 
-        /* Secondary / muted text inside glass cards */
-        .light-mode .glass-card .text-neutral-300,
-        .light-mode .glass-card-strong .text-neutral-300  { color: #444 !important; }
-        .light-mode .glass-card .text-neutral-400,
-        .light-mode .glass-card-strong .text-neutral-400  { color: #666 !important; }
-        .light-mode .glass-card .text-neutral-500,
-        .light-mode .glass-card-strong .text-neutral-500  { color: #888 !important; }
-        .light-mode .glass-card .text-neutral-600,
-        .light-mode .glass-card-strong .text-neutral-600  { color: #999 !important; }
+        /* ── Neutral text — GLOBAL (safe: image-cards use text-white/* variants, not text-neutral-*) */
+        .light-mode .text-neutral-300 { color: #555 !important; }
+        .light-mode .text-neutral-400 { color: #666 !important; }
+        .light-mode .text-neutral-500 { color: #777 !important; }
+        .light-mode .text-neutral-600 { color: #888 !important; }
 
-        /* silver-text (Read More →, etc.) — make darker on light backgrounds */
-        .light-mode .glass-card .silver-text,
-        .light-mode .glass-card-strong .silver-text {
+        /* silver-text (Read More →, etc.) — darker on light backgrounds */
+        .light-mode .silver-text {
           background: linear-gradient(to right, #555, #888, #666, #888, #555) !important;
           -webkit-background-clip: text !important;
           -webkit-text-fill-color: transparent !important;
           background-clip: text !important;
         }
 
-        /* Dark inline backgrounds inside glass cards → light */
-        .light-mode .glass-card .bg-neutral-900,
-        .light-mode .glass-card-strong .bg-neutral-900  { background-color: #efefef !important; }
-        .light-mode .glass-card .bg-neutral-800,
-        .light-mode .glass-card-strong .bg-neutral-800  { background-color: #e2e2e2 !important; }
-        .light-mode .glass-card .bg-neutral-700,
-        .light-mode .glass-card-strong .bg-neutral-700  { background-color: #d4d4d4 !important; }
+        /* ── Dark backgrounds — solid */
+        .light-mode .bg-neutral-900 { background-color: #efefef !important; }
+        .light-mode .bg-neutral-800 { background-color: #e2e2e2 !important; }
+        .light-mode .bg-neutral-700 { background-color: #d4d4d4 !important; }
 
-        /* Looser bg-neutral overrides for elements not inside glass-card */
-        .light-mode .bg-neutral-900  { background-color: #f0f0f0 !important; }
-        .light-mode .bg-neutral-800  { background-color: #e4e4e4 !important; }
+        /* ── Dark backgrounds — Tailwind opacity variants (bg-neutral-X/Y) */
+        .light-mode .bg-neutral-900\/40 { background-color: rgba(210,210,210,0.65) !important; }
+        .light-mode .bg-neutral-900\/60 { background-color: rgba(215,215,215,0.75) !important; }
+        .light-mode .bg-neutral-800\/50 { background-color: rgba(205,205,205,0.55) !important; }
+        .light-mode .bg-neutral-800\/80 { background-color: rgba(220,220,220,0.85) !important; }
 
         /* Border neutrals */
         .light-mode .border-neutral-800 { border-color: #d0d0d0 !important; }
         .light-mode .border-neutral-700 { border-color: #c4c4c4 !important; }
 
-        /* Inputs inside light mode */
+        /* Inputs */
         .light-mode input[class*="bg-neutral"] {
           background-color: #f0f0f0 !important;
           color: #1a1a1a !important;
