@@ -193,15 +193,7 @@ export default function Profile() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.5 }}
       >
-        <button className={`w-full rounded-2xl px-5 py-3.5 flex items-center justify-between transition-colors ${
-          darkMode 
-            ? 'glass-card hover:bg-white/5' 
-            : 'bg-gray-50 border border-gray-200 hover:bg-gray-100'
-        }`}>
-          <span className={`text-sm ${darkMode ? 'text-white' : 'text-gray-800'}`}>Subscription</span>
-          <span className={`text-xs ${darkMode ? 'text-[#E0B23A]' : 'text-gray-800'}`}>Premium</span>
-        </button>
-        <button 
+        <button
           onClick={() => setShowPrivacyModal(true)}
           className={`w-full rounded-2xl px-5 py-3.5 flex items-center gap-3 transition-colors ${
             darkMode 
