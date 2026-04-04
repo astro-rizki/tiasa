@@ -10,11 +10,12 @@ function handleEsp(ws) {
   // Heartbeat ping ke ESP
   const pingInterval = setInterval(() => {
     if (ws.readyState === WebSocket.OPEN) {
+      console.log("ping")
       ws.ping();
     } else {
       clearInterval(pingInterval);
     }
-  }, 30000);
+  }, 25000);
 
   clients.broadcastToBrowsers(JSON.stringify({
     type: 'esp_status',

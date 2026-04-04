@@ -7,19 +7,19 @@ const perfumes = [
   {
     id: "magnoy",
     name: "Magnoy",
-    image: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=200&h=200&fit=crop",
+    image: "/images/blend/bottle1.png",
     isFree: false
   },
   {
     id: "vulcain",
     name: "Vulcain",
-    image: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=200&h=200&fit=crop",
+    image: "/images/blend/bottle2.png",
     isFree: true
   },
   {
     id: "opoiky",
     name: "Opoiky",
-    image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=200&h=200&fit=crop",
+    image: "/images/blend/bottle3.png",
     isFree: false
   }
 ];

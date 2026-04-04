@@ -5,9 +5,9 @@ import FeaturedYSL from "../components/profile/FeaturedYSL";
 import { toast } from "sonner";
 
 export default function Profile() {
-  const [profileImage, setProfileImage] = useState("https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&h=200&fit=crop");
+  const [profileImage, setProfileImage] = useState("/images/profile.png");
   const [darkMode, setDarkMode] = useState(true);
-  const [username, setUsername] = useState("Alexander Chen");
+  const [username, setUsername] = useState("Alexandra Chen");
   const [isEditingName, setIsEditingName] = useState(false);
   const [tempUsername, setTempUsername] = useState(username);
   const [showPrivacyModal, setShowPrivacyModal] = useState(false);

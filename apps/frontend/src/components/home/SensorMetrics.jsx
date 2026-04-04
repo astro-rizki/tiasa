@@ -7,7 +7,7 @@ export default function SensorMetrics({ type = "sensing", sensingData, deviceMet
     { 
       label: "Skin Conductance", 
       value: sensingData?.skin_conductance_uS || 12, 
-      unit: "µS",
+      unit: " µS",
       icon: Activity,
       color: "#7EC8B0"
     },
@@ -34,7 +34,7 @@ export default function SensorMetrics({ type = "sensing", sensingData, deviceMet
     },
     { 
       label: "Body Temp", 
-      value: sensingData?.body_temp_c ? `${sensingData.body_temp_c.toString().replace('.', ',')}` : "36,5", 
+      value: sensingData?.body_temp_c ? `${sensingData.body_temp_c.toString().replace('.', ',')}` : "36,5a", 
       unit: "°C",
       icon: Thermometer,
       color: "#FF6B6B"
