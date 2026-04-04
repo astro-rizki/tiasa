@@ -7,6 +7,15 @@ function handleEsp(ws) {
   console.log('[ESP] Connected');
   clients.setEsp(ws);
 
+  // Heartbeat ping ke ESP
+  const pingInterval = setInterval(() => {
+    if (ws.readyState === WebSocket.OPEN) {
+      ws.ping();
+    } else {
+      clearInterval(pingInterval);
+    }
+  }, 30000);
+
   clients.broadcastToBrowsers(JSON.stringify({
     type: 'esp_status',
     connected: true,
@@ -19,6 +28,7 @@ function handleEsp(ws) {
   });
 
   ws.on('close', () => {
+    clearInterval(pingInterval);
     console.log('[ESP] Disconnected');
     clients.clearEsp();
     triggerSafetyOff();
