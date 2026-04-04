@@ -14,7 +14,7 @@ const navItems = [
 export default function Layout({ children, currentPageName }) {
   const { darkMode } = useTheme();
   return (
-    <div className={`min-h-screen text-white flex flex-col transition-colors duration-300 ${darkMode ? "bg-[#0A0A0A]" : "bg-white"}`}>
+    <div className={`min-h-screen text-white flex flex-col transition-colors duration-300 ${darkMode ? "bg-[#0A0A0A]" : "bg-[#F5F5F0] light-mode"}`}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap');
 
@@ -73,6 +73,61 @@ export default function Layout({ children, currentPageName }) {
         /* Hide scrollbar */
         ::-webkit-scrollbar { display: none; }
         * { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* ── Light mode overrides ── */
+
+        /* Card backgrounds */
+        .light-mode .glass-card {
+          background: rgba(255, 255, 255, 0.85) !important;
+          border: 0.5px solid rgba(180, 150, 40, 0.2) !important;
+          backdrop-filter: blur(20px);
+        }
+        .light-mode .glass-card-strong {
+          background: rgba(255, 255, 255, 0.92) !important;
+          border: 1px solid rgba(180, 150, 40, 0.25) !important;
+          backdrop-filter: blur(24px);
+        }
+
+        /* Primary text — white → near-black */
+        .light-mode .text-white {
+          color: #1a1a1a !important;
+        }
+
+        /* Secondary / muted text — neutrals → readable grays */
+        .light-mode .text-neutral-300 { color: #444 !important; }
+        .light-mode .text-neutral-400 { color: #666 !important; }
+        .light-mode .text-neutral-500 { color: #888 !important; }
+        .light-mode .text-neutral-600 { color: #999 !important; }
+
+        /* Dark inline backgrounds inside cards → light */
+        .light-mode .bg-neutral-900  { background-color: #efefef !important; }
+        .light-mode .bg-neutral-800  { background-color: #e2e2e2 !important; }
+        .light-mode .bg-neutral-700  { background-color: #d4d4d4 !important; }
+        .light-mode .bg-neutral-800\/50 { background-color: rgba(200,200,200,0.5) !important; }
+        .light-mode .bg-neutral-900\/60 { background-color: rgba(230,230,230,0.6) !important; }
+
+        /* Border neutrals */
+        .light-mode .border-neutral-800 { border-color: #d0d0d0 !important; }
+        .light-mode .border-neutral-700 { border-color: #c4c4c4 !important; }
+
+        /* Bottom nav — keep readable */
+        .light-mode .glass-card-strong .text-neutral-500 { color: #888 !important; }
+        .light-mode .glass-card-strong .text-neutral-600 { color: #999 !important; }
+
+        /* Inputs inside light mode */
+        .light-mode input[class*="bg-neutral"] {
+          background-color: #f0f0f0 !important;
+          color: #1a1a1a !important;
+          border-color: #c4c4c4 !important;
+        }
+        .light-mode input::placeholder { color: #aaa !important; }
+
+        /* Preserve intentionally dark/colored elements */
+        .light-mode [style*="background: #1a1a1a"],
+        .light-mode [style*="background: rgb(26"],
+        .light-mode [style*="background-color: #0A0A0A"] {
+          /* inline styles keep their own values — not overridden */
+        }
       `}</style>
 
       <div className="flex-1 overflow-y-auto pb-24 font-body">
