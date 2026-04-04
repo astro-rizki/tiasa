@@ -16,8 +16,7 @@ const FLIGHTS = [
     hub: "JFK",
     type: "Nonstop",
     unlock: "Jardin de Paris",
-    bg: "from-[#1a0a2e] to-[#0d1b2a]",
-    city_img: null,
+    city_img: "/images/blend/city.jpg",
   },
   {
     id: 2,
@@ -32,8 +31,7 @@ const FLIGHTS = [
     hub: "ATL",
     type: "Nonstop",
     unlock: "English Rose Noir",
-    bg: "from-[#0d1b2a] to-[#1a0a2e]",
-    city_img: null,
+    city_img: "/images/blend/summer.jpg",
   },
   {
     id: 3,
@@ -48,8 +46,7 @@ const FLIGHTS = [
     hub: "NRT",
     type: "Nonstop",
     unlock: "Sakura Oud",
-    bg: "from-[#0a1a12] to-[#1a0a0a]",
-    city_img: null,
+    city_img: "/images/blend/safari.jpg",
   },
 ];
 
@@ -78,8 +75,17 @@ export default function DeltaPartner({ darkMode }) {
             Delta Exclusives
           </h2>
         </div>
-        {/* Delta wordmark */}
-        <div className="flex items-center gap-1.5">
+        {/* Delta logo */}
+        <img
+          src="/images/profile/delta.png"
+          alt="Delta"
+          className="h-5 object-contain"
+          onError={(e) => {
+            e.currentTarget.style.display = "none";
+            e.currentTarget.nextSibling.style.display = "flex";
+          }}
+        />
+        <div className="items-center gap-1.5 hidden">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
             <path d="M12 2L22 20H2L12 2Z" fill="#E31837" />
           </svg>
@@ -93,42 +99,62 @@ export default function DeltaPartner({ darkMode }) {
           <button
             key={flight.id}
             onClick={() => { setSelectedFlight(flight); setCode(""); }}
-            className={`flex-shrink-0 w-44 rounded-2xl overflow-hidden text-left transition-transform active:scale-95 bg-gradient-to-br ${flight.bg} border border-white/10`}
+            className="flex-shrink-0 w-44 rounded-2xl overflow-hidden text-left transition-transform active:scale-95 relative"
+            style={{ minHeight: "160px" }}
           >
-            {/* Card Header */}
-            <div className="px-3.5 pt-3 pb-2">
+            {/* Background city image */}
+            <img
+              src={flight.city_img}
+              alt={flight.destCity}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            {/* Dark overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/80" />
+
+            {/* Card content */}
+            <div className="relative z-10 px-3.5 pt-3 pb-3 flex flex-col h-full" style={{ minHeight: "160px" }}>
+              {/* Route + code */}
               <div className="flex items-start justify-between mb-1.5">
                 <span className="text-white font-bold text-sm tracking-wide">{flight.route}</span>
-                <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-medium ${darkMode ? "bg-white/10 text-white/60" : "bg-white/20 text-white/70"}`}>
+                <span className="text-[9px] px-1.5 py-0.5 rounded-full font-medium bg-white/15 text-white/70">
                   {flight.code}
                 </span>
               </div>
 
-              {/* Delta logo small */}
-              <div className="flex items-center gap-1 mb-3">
-                <svg width="9" height="9" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2L22 20H2L12 2Z" fill="#E31837" />
-                </svg>
-                <span className="text-[9px] font-bold tracking-widest text-white/70">DELTA</span>
+              {/* Delta logo */}
+              <div className="mb-3">
+                <img
+                  src="/images/profile/delta.png"
+                  alt="Delta"
+                  className="h-3.5 object-contain"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                    e.currentTarget.nextSibling.style.display = "flex";
+                  }}
+                />
+                <div className="items-center gap-1 hidden">
+                  <svg width="9" height="9" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L22 20H2L12 2Z" fill="#E31837" />
+                  </svg>
+                  <span className="text-[9px] font-bold tracking-widest text-white/70">DELTA</span>
+                </div>
               </div>
 
               {/* Divider */}
-              <div className="border-t border-white/10 mb-2.5" />
+              <div className="border-t border-white/20 mb-2.5" />
 
               {/* Flight info */}
               <div className="flex items-center gap-1.5 mb-1">
                 <span className="text-white text-xs font-semibold">{flight.time}</span>
                 <Plane className="w-3 h-3 text-white/50 rotate-45" strokeWidth={2} />
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mb-auto">
                 <span className="text-white/50 text-[10px]">{flight.hub}</span>
                 <span className="text-white/40 text-[10px]">{flight.type}</span>
               </div>
-            </div>
 
-            {/* Lock badge */}
-            <div className="px-3.5 pb-3">
-              <div className="flex items-center gap-1.5 mt-1">
+              {/* Lock badge */}
+              <div className="flex items-center gap-1.5 mt-3">
                 <Lock className="w-2.5 h-2.5 text-[#E0B23A]" strokeWidth={2} />
                 <span className="text-[9px] text-[#E0B23A] truncate">{flight.unlock}</span>
               </div>
@@ -139,11 +165,11 @@ export default function DeltaPartner({ darkMode }) {
         <div className="w-2 flex-shrink-0" />
       </div>
 
-      {/* Unlock Modal */}
+      {/* Unlock Modal — z-[1000] to sit above bottom nav (z-[999]) */}
       <AnimatePresence>
         {selectedFlight && (
           <motion.div
-            className="fixed inset-0 z-50 flex items-end justify-center bg-black/80 backdrop-blur-md"
+            className="fixed inset-0 z-[1000] flex items-end justify-center bg-black/80 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -158,7 +184,7 @@ export default function DeltaPartner({ darkMode }) {
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header — Delta flight card style */}
+              {/* Modal Header */}
               <div className="relative bg-gradient-to-r from-[#7B1C28] to-[#4A0E16] px-5 py-4">
                 <button
                   onClick={() => setSelectedFlight(null)}
@@ -176,16 +202,23 @@ export default function DeltaPartner({ darkMode }) {
                   {selectedFlight.originCity} — {selectedFlight.destCity} · {selectedFlight.cabin}
                 </p>
 
-                {/* Delta logo */}
+                {/* Delta logo in modal */}
                 <div className="flex items-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2L22 20H2L12 2Z" fill="#E31837" />
-                  </svg>
-                  <span className="text-sm font-bold tracking-[0.2em] text-white">DELTA</span>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" opacity="0.5">
-                    <circle cx="12" cy="12" r="10" stroke="white" strokeWidth="1.5" />
-                    <path d="M7 12h10M12 7v10" stroke="white" strokeWidth="1.5" />
-                  </svg>
+                  <img
+                    src="/images/profile/delta.png"
+                    alt="Delta"
+                    className="h-4 object-contain"
+                    onError={(e) => {
+                      e.currentTarget.style.display = "none";
+                      e.currentTarget.nextSibling.style.display = "flex";
+                    }}
+                  />
+                  <div className="items-center gap-1.5 hidden">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                      <path d="M12 2L22 20H2L12 2Z" fill="#E31837" />
+                    </svg>
+                    <span className="text-sm font-bold tracking-[0.2em] text-white">DELTA</span>
+                  </div>
                 </div>
               </div>
 
