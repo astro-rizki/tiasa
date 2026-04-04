@@ -5,35 +5,35 @@ import { X, ExternalLink } from "lucide-react";
 const articles = [
   {
     id: 1,
-    title: "The Art of Layering Scents",
+    title: "Libre Flowers and Flames",
     description: "Discover how to create your signature fragrance",
-    image: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=300&fit=crop",
-    excerpt: "Master the sophisticated technique of fragrance layering to create a truly unique and personal scent signature that evolves throughout the day.",
-    url: "https://www.ysl.com/en-us/beauty-stories"
+    image: "/images/profile/libre.webp",
+    excerpt: "libre flowers & flames eau de parfum, a seductive and sensual floral interpretation of women's perfume from the award-winning libre ysl beauty.",
+    url: "https://www.yslbeauty.co.id/in_ID/parfum/libre-flowers-and-flames/WW-51280YSL.html"
   },
   {
     id: 2,
-    title: "Behind the Bottle: Libre",
+    title: "Intense EDP Libre",
     description: "The story behind YSL's iconic fragrance",
-    image: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=400&h=300&fit=crop",
-    excerpt: "Explore the creative journey and inspiration behind one of YSL's most celebrated fragrances, from conception to the final masterpiece.",
-    url: "https://www.ysl.com/en-us/fragrance"
+    image: "/images/profile/intense.webp",
+    excerpt: "the feminine libre eau de parfum intense by yves saint laurent. now refillable, sustainable is a new fashion",
+    url: "https://www.yslbeauty.co.id/in_ID/parfum/parfum-wanita/libre/libre-eau-de-parfum-intense/WW-50657YSL.html"
   },
   {
     id: 3,
-    title: "Sustainable Beauty",
+    title: "Black Opium Eau De Parfum Glitter",
     description: "Our commitment to the environment",
-    image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=300&fit=crop",
-    excerpt: "Learn about YSL Beauty's innovative approach to sustainability and our pledge to create luxurious fragrances while protecting our planet.",
-    url: "https://www.ysl.com/en-us/sustainability"
+    image: "/images/profile/bopium.jpg",
+    excerpt: "Sexy glitter, fluffy pleasure. The new marshmallow musk scent igniting magnetic sexiness. ",
+    url: "https://www.yslbeauty.co.id/in_ID/parfum/parfum-wanita/black-opium/black-opium-eau-de-parfum-glitter/WW-51333YSL.html"
   },
   {
     id: 4,
-    title: "Perfume Making Process",
+    title: "Y 'L Elixir",
     description: "From raw materials to final product",
-    image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=300&fit=crop",
-    excerpt: "Take an exclusive behind-the-scenes look at the meticulous artistry and precision that goes into crafting every YSL fragrance.",
-    url: "https://www.ysl.com/en-us/craftsmanship"
+    image: "/images/profile/elixir.jpg",
+    excerpt: "Highly enigmatic.intensely rich. the highest concentration ever of y. the elixir of y, the elixir of success.",
+    url: "https://www.yslbeauty.co.id/in_ID/parfum/parfum-pria/y/y-l--elixir/WW-51155YSL.html"
   }
 ];
 
