@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Lock, X, ExternalLink, Plane } from "lucide-react";
+import { Lock, X, ExternalLink, Plane, CheckCircle } from "lucide-react";
 
 const FLIGHTS = [
   {
@@ -53,9 +53,16 @@ const FLIGHTS = [
 export default function DeltaPartner({ darkMode }) {
   const [selectedFlight, setSelectedFlight] = useState(null);
   const [code, setCode] = useState("");
+  const [claimed, setClaimed] = useState(false);
 
   const handleVerify = () => {
-    // dummy — buntu
+    setClaimed(true);
+  };
+
+  const handleClose = () => {
+    setSelectedFlight(null);
+    setCode("");
+    setClaimed(false);
   };
 
   return (
@@ -173,7 +180,7 @@ export default function DeltaPartner({ darkMode }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={() => setSelectedFlight(null)}
+            onClick={handleClose}
           >
             <motion.div
               className="w-full max-w-md rounded-t-3xl overflow-hidden"
@@ -184,10 +191,46 @@ export default function DeltaPartner({ darkMode }) {
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
               onClick={(e) => e.stopPropagation()}
             >
+              {/* Success State */}
+              <AnimatePresence>
+                {claimed && (
+                  <motion.div
+                    className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 text-center rounded-t-3xl"
+                    style={{ background: "#1a1a1a" }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", delay: 0.1, stiffness: 200 }}
+                    >
+                      <CheckCircle className="w-16 h-16 text-[#E0B23A] mb-4" strokeWidth={1.5} />
+                    </motion.div>
+                    <h3 className="font-serif-luxury text-xl text-white mb-2">
+                      Parfum Unlocked!
+                    </h3>
+                    <p className="text-neutral-400 text-sm mb-1">
+                      &ldquo;{selectedFlight?.unlock}&rdquo;
+                    </p>
+                    <p className="text-neutral-600 text-xs mb-8">
+                      {selectedFlight?.originCity} → {selectedFlight?.destCity} · {selectedFlight?.cabin}
+                    </p>
+                    <button
+                      onClick={handleClose}
+                      className="w-full py-3.5 rounded-xl text-sm font-semibold uppercase tracking-wider bg-[#E0B23A] text-black"
+                    >
+                      Done
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {/* Modal Header */}
               <div className="relative bg-gradient-to-r from-[#7B1C28] to-[#4A0E16] px-5 py-4">
                 <button
-                  onClick={() => setSelectedFlight(null)}
+                  onClick={handleClose}
                   className="absolute top-3 right-3 w-7 h-7 rounded-full bg-white/10 flex items-center justify-center"
                 >
                   <X className="w-3.5 h-3.5 text-white/70" />
@@ -242,9 +285,9 @@ export default function DeltaPartner({ darkMode }) {
                   <input
                     type="text"
                     value={code}
-                    onChange={(e) => setCode(e.target.value.toUpperCase())}
+                    onChange={(e) => setCode(e.target.value.toUpperCase().slice(0, 6))}
                     placeholder="e.g. DL1234"
-                    maxLength={10}
+                    maxLength={6}
                     className="w-full rounded-xl px-4 py-3 text-sm bg-neutral-800 border border-neutral-700 text-white placeholder:text-neutral-600 focus:outline-none focus:border-neutral-500 font-mono-data tracking-wider"
                   />
                 </div>
@@ -252,8 +295,12 @@ export default function DeltaPartner({ darkMode }) {
                 {/* Verify button */}
                 <button
                   onClick={handleVerify}
-                  className="w-full py-3.5 rounded-xl text-sm font-semibold uppercase tracking-wider transition-all bg-neutral-700 text-white/60 cursor-not-allowed mb-3"
-                  disabled
+                  disabled={code.length < 6}
+                  className={`w-full py-3.5 rounded-xl text-sm font-semibold uppercase tracking-wider transition-all mb-3 ${
+                    code.length >= 6
+                      ? "bg-[#E0B23A] text-black cursor-pointer"
+                      : "bg-neutral-700 text-white/60 cursor-not-allowed"
+                  }`}
                 >
                   Verify &amp; Unlock
                 </button>
