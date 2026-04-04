@@ -90,7 +90,7 @@ export default function DeltaPartner({ darkMode }) {
           </h2>
         </div>
         <img
-          src="/images/profile/delta.png"
+          src="/images/profile/delta-color.png"
           alt="Delta"
           className="h-5 object-contain"
           onError={(e) => {
@@ -134,7 +134,7 @@ export default function DeltaPartner({ darkMode }) {
                   <div className="flex items-center justify-between mb-2">
                     <div className="flex items-center gap-1.5">
                       <img
-                        src="/images/profile/delta.png"
+                        src="/images/profile/delta-color.png"
                         alt="Delta"
                         className="h-3.5 object-contain"
                         onError={(e) => {

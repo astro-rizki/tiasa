@@ -77,7 +77,7 @@ export default function DeltaBlendSection() {
         </div>
         {/* Delta logo */}
         <img
-          src="/images/profile/delta.png"
+          src="/images/profile/delta-color.png"
           alt="Delta"
           className="h-5 object-contain mt-0.5"
           onError={(e) => {
@@ -198,7 +198,7 @@ export default function DeltaBlendSection() {
 
                 <div className="flex items-center gap-2">
                   <img
-                    src="/images/profile/delta.png"
+                    src="/images/profile/delta-color.png"
                     alt="Delta"
                     className="h-4 object-contain"
                     onError={(e) => {
