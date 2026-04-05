@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Lock, X, ExternalLink, CheckCircle } from "lucide-react";
+import { useTheme } from "../../lib/ThemeContext";
 
 const DELTA_COLLECTION = [
   {
@@ -50,6 +51,7 @@ const DELTA_COLLECTION = [
 ];
 
 export default function DeltaBlendSection() {
+  const { darkMode } = useTheme();
   const [selected, setSelected] = useState(null);
   const [code, setCode] = useState("");
   const [claimed, setClaimed] = useState(false);
@@ -77,7 +79,7 @@ export default function DeltaBlendSection() {
         </div>
         {/* Delta logo */}
         <img
-          src="/images/profile/delta-color.png"
+          src={darkMode ? "/images/profile/delta.png" : "/images/profile/delta-color.png"}
           alt="Delta"
           className="h-5 object-contain mt-0.5"
           onError={(e) => {
@@ -198,7 +200,7 @@ export default function DeltaBlendSection() {
 
                 <div className="flex items-center gap-2">
                   <img
-                    src="/images/profile/delta-color.png"
+                    src={darkMode ? "/images/profile/delta.png" : "/images/profile/delta-color.png"}
                     alt="Delta"
                     className="h-4 object-contain"
                     onError={(e) => {

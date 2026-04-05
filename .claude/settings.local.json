@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find 'C:/Users/srizk/Music/airi/external projects/tiasa' -name delta*)"
+    ]
+  }
+}
