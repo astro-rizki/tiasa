@@ -2,63 +2,78 @@ import React, { useState } from "react";
 import { Heart, Check } from "lucide-react";
 import { motion } from "framer-motion";
 
-// 50+ YSL fragrances with official names
 const yslProducts = [
-  { id: "ysl-libre", name: "Libre", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-black-opium", name: "Black Opium", image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400&h=400&fit=crop", family: "Oriental" },
-  { id: "ysl-mon-paris", name: "Mon Paris", image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-y", name: "Y", image: "https://images.unsplash.com/photo-1594035910387-fbed47ff321e?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-la-nuit", name: "La Nuit de L'Homme", image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop", family: "Spicy" },
-  { id: "ysl-kouros", name: "Kouros", image: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-cinema", name: "Cinema", image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-opium", name: "Opium", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop", family: "Oriental" },
-  { id: "ysl-libre-intense", name: "Libre Intense", image: "https://images.unsplash.com/photo-1580870069867-74c02224e1d5?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-black-opium-intense", name: "Black Opium Intense", image: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop", family: "Oriental" },
-  { id: "ysl-yvresse", name: "Yvresse", image: "https://images.unsplash.com/photo-1592428122519-e00c56afdfa3?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-y-edp", name: "Y Eau de Parfum", image: "https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-jazz", name: "Jazz", image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=400&fit=crop", family: "Fresh" },
-  { id: "ysl-libre-edp", name: "Libre EDP", image: "https://images.unsplash.com/photo-1582274528667-1e8a10ded835?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-manifesto", name: "Manifesto", image: "https://images.unsplash.com/photo-1592102726589-89400bc7db85?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-parisienne", name: "Parisienne", image: "https://images.unsplash.com/photo-1591361397361-f0c441a5785c?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-saharienne", name: "Saharienne", image: "https://images.unsplash.com/photo-1615397349754-5db1d5c0b8c5?w=400&h=400&fit=crop", family: "Fresh" },
-  { id: "ysl-elle", name: "Elle", image: "https://images.unsplash.com/photo-1596704017254-9b121068937e?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-baby-doll", name: "Baby Doll", image: "https://images.unsplash.com/photo-1610016302534-482f7e6f7c2f?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-champagne", name: "Champagne", image: "https://images.unsplash.com/photo-1609265658141-a86f16c83513?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-in-love-again", name: "In Love Again", image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-nu", name: "Nu", image: "https://images.unsplash.com/photo-1619194616468-f6a9f50b4d2d?w=400&h=400&fit=crop", family: "Fresh" },
-  { id: "ysl-paris", name: "Paris", image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-rive-gauche", name: "Rive Gauche", image: "https://images.unsplash.com/photo-1610016302534-482f7e6f7c2f?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-cinema-edp", name: "Cinema EDP", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-y-live", name: "Y Live", image: "https://images.unsplash.com/photo-1580870069867-74c02224e1d5?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-l-homme", name: "L'Homme", image: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-l-homme-intense", name: "L'Homme Intense", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-l-homme-sport", name: "L'Homme Sport", image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400&h=400&fit=crop", family: "Fresh" },
-  { id: "ysl-l-homme-ultime", name: "L'Homme Ultime", image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-libre-flowers", name: "Libre Flowers & Flames", image: "https://images.unsplash.com/photo-1594035910387-fbed47ff321e?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-mon-paris-intense", name: "Mon Paris Intensément", image: "https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-mon-paris-floral", name: "Mon Paris Floral", image: "https://images.unsplash.com/photo-1587017539504-67cfbddac569?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-black-opium-illicit", name: "Black Opium Illicit", image: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=400&fit=crop", family: "Oriental" },
-  { id: "ysl-black-opium-floral", name: "Black Opium Floral Shock", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop", family: "Oriental" },
-  { id: "ysl-black-opium-nuit", name: "Black Opium Nuit Blanche", image: "https://images.unsplash.com/photo-1580870069867-74c02224e1d5?w=400&h=400&fit=crop", family: "Oriental" },
-  { id: "ysl-black-opium-glow", name: "Black Opium Glow", image: "https://images.unsplash.com/photo-1563170351-be82bc888aa4?w=400&h=400&fit=crop", family: "Oriental" },
-  { id: "ysl-black-opium-extreme", name: "Black Opium Extreme", image: "https://images.unsplash.com/photo-1592428122519-e00c56afdfa3?w=400&h=400&fit=crop", family: "Oriental" },
-  { id: "ysl-la-nuit-bleu", name: "La Nuit Bleu Électrique", image: "https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?w=400&h=400&fit=crop", family: "Spicy" },
-  { id: "ysl-la-nuit-frozen", name: "La Nuit Frozen Cologne", image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=400&fit=crop", family: "Fresh" },
-  { id: "ysl-y-edp-intense", name: "Y Eau de Parfum Intense", image: "https://images.unsplash.com/photo-1582274528667-1e8a10ded835?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-y-le-parfum", name: "Y Le Parfum", image: "https://images.unsplash.com/photo-1592102726589-89400bc7db85?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-myslf", name: "MYSLF", image: "https://images.unsplash.com/photo-1591361397361-f0c441a5785c?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-myself-edp", name: "MYSLF EDP", image: "https://images.unsplash.com/photo-1615397349754-5db1d5c0b8c5?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-libre-eau-tendre", name: "Libre Eau de Toilette", image: "https://images.unsplash.com/photo-1596704017254-9b121068937e?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-mon-paris-couture", name: "Mon Paris Couture", image: "https://images.unsplash.com/photo-1610016302534-482f7e6f7c2f?w=400&h=400&fit=crop", family: "Floral" },
-  { id: "ysl-opium-pour-homme", name: "Opium Pour Homme", image: "https://images.unsplash.com/photo-1609265658141-a86f16c83513?w=400&h=400&fit=crop", family: "Spicy" },
-  { id: "ysl-m7", name: "M7", image: "https://images.unsplash.com/photo-1617897903246-719242758050?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-m7-oud", name: "M7 Oud Absolu", image: "https://images.unsplash.com/photo-1619194616468-f6a9f50b4d2d?w=400&h=400&fit=crop", family: "Oriental" },
-  { id: "ysl-body-kouros", name: "Body Kouros", image: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=400&h=400&fit=crop", family: "Fresh" },
-  { id: "ysl-kouros-silver", name: "Kouros Silver", image: "https://images.unsplash.com/photo-1610016302534-482f7e6f7c2f?w=400&h=400&fit=crop", family: "Fresh" },
-  { id: "ysl-kouros-fraicheur", name: "Kouros Fraîcheur", image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=400&h=400&fit=crop", family: "Fresh" },
-  { id: "ysl-kouros-summer", name: "Kouros Summer", image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=400&h=400&fit=crop", family: "Fresh" },
-  { id: "ysl-tuxedo", name: "Tuxedo", image: "https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=400&h=400&fit=crop", family: "Woody" },
-  { id: "ysl-supreme-bouquet", name: "Supreme Bouquet", image: "https://images.unsplash.com/photo-1594035910387-fbed47ff321e?w=400&h=400&fit=crop", family: "Floral" },
+  // ─── LIBRE COLLECTION ──────────────────────────────────────────────────────
+  { id: "ysl-libre",            name: "Libre",                      family: "Floral",   image: "https://www.sephora.com/productimages/sku/s2249746-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-libre-edp",        name: "Libre EDP",                  family: "Floral",   image: "https://www.sephora.com/productimages/sku/s2249746-main-zoom.jpg" }, // ✅ Sephora (sama)
+  { id: "ysl-libre-intense",    name: "Libre Intense",              family: "Floral",   image: "https://www.sephora.com/productimages/sku/s2371896-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-libre-flowers",    name: "Libre Flowers & Flames",     family: "Floral",   image: "https://www.sephora.com/productimages/sku/s2799898-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-libre-le-parfum",  name: "Libre Le Parfum",            family: "Floral",   image: "https://www.sephora.com/productimages/sku/s2590966-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-libre-eau-tendre", name: "Libre Eau de Toilette",      family: "Floral",   image: "https://static-ph.zacdn.com/p/yves-saint-laurent-3376-7112492-1.jpg" }, // ✅ Zalora PH
+  // ─── BLACK OPIUM COLLECTION ─────────────────────────────────────────────────
+  { id: "ysl-black-opium",         name: "Black Opium",                family: "Oriental", image: "https://www.sephora.com/productimages/sku/s1688852-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-black-opium-intense", name: "Black Opium Intense",        family: "Oriental", image: "https://www.sephora.com/productimages/sku/s2639631-main-zoom.jpg" }, // ✅ Sephora (Le Parfum bottle)
+  { id: "ysl-black-opium-illicit", name: "Black Opium Illicit",        family: "Oriental", image: "https://www.sephora.com/productimages/sku/s1688852-main-zoom.jpg" }, // ✅ Sephora (BO EDP proxy)
+  { id: "ysl-black-opium-floral",  name: "Black Opium Floral Shock",   family: "Oriental", image: "https://img.fragrancex.com/images/products/parent/medium/74515w.jpg" }, // ✅ FragranceX
+  { id: "ysl-black-opium-nuit",    name: "Black Opium Nuit Blanche",   family: "Oriental", image: "https://img.fragrancex.com/images/products/parent/medium/73667w.jpg" }, // ✅ FragranceX
+  { id: "ysl-black-opium-glow",    name: "Black Opium Glow",           family: "Oriental", image: "https://www.sephora.com/productimages/sku/s1688852-main-zoom.jpg" }, // ✅ Sephora (BO EDP proxy)
+  { id: "ysl-black-opium-extreme", name: "Black Opium Extreme",        family: "Oriental", image: "https://img.fragrancex.com/images/products/parent/medium/81609w.jpg" }, // ✅ FragranceX
+  { id: "ysl-black-opium-glitter", name: "Black Opium Glitter",        family: "Oriental", image: "https://www.sephora.com/productimages/sku/s2801553-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-black-opium-over-red",name: "Black Opium Over Red",       family: "Oriental", image: "https://www.sephora.com/productimages/sku/s2732675-main-zoom.jpg" }, // ✅ Sephora
+  // ─── MON PARIS COLLECTION ───────────────────────────────────────────────────
+  { id: "ysl-mon-paris",         name: "Mon Paris",                   family: "Floral",   image: "https://www.sephora.com/productimages/sku/s1838861-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-mon-paris-intense", name: "Mon Paris Intensément",       family: "Floral",   image: "https://www.sephora.com/productimages/sku/s2316032-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-mon-paris-couture", name: "Mon Paris Couture",           family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/76306w.jpg" }, // ✅ FragranceX
+  { id: "ysl-mon-paris-floral",  name: "Mon Paris Floral",            family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/78058w.jpg" }, // ✅ FragranceX
+  // ─── Y COLLECTION ──────────────────────────────────────────────────────────
+  { id: "ysl-y",             name: "Y",                               family: "Woody",    image: "https://www.sephora.com/productimages/sku/s2546216-main-zoom.jpg" }, // ✅ Sephora — Y EDT
+  { id: "ysl-y-edp",         name: "Y Eau de Parfum",                 family: "Woody",    image: "https://www.sephora.com/productimages/sku/s2099885-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-y-edp-intense",  name: "Y Eau de Parfum Intense",        family: "Woody",    image: "https://www.sephora.com/productimages/sku/s2645778-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-y-le-parfum",   name: "Y Le Parfum",                     family: "Woody",    image: "https://www.sephora.com/productimages/sku/s2862662-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-y-live",        name: "Y Live",                          family: "Woody",    image: "https://img.fragrancex.com/images/products/parent/medium/78523m.jpg" }, // ✅ FragranceX (Y Live Intense proxy)
+  // ─── LA NUIT DE L'HOMME COLLECTION ──────────────────────────────────────────
+  { id: "ysl-la-nuit",        name: "La Nuit de L'Homme",            family: "Spicy",    image: "https://www.sephora.com/productimages/sku/s1200716-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-la-nuit-bleu",   name: "La Nuit Bleu Électrique",       family: "Spicy",    image: "https://img.fragrancex.com/images/products/parent/medium/76243m.jpg" }, // ✅ FragranceX
+  { id: "ysl-la-nuit-frozen", name: "La Nuit Frozen Cologne",        family: "Fresh",    image: "https://img.fragrancex.com/images/products/parent/medium/69292m.jpg" }, // ✅ FragranceX
+  // ─── L'HOMME COLLECTION ─────────────────────────────────────────────────────
+  { id: "ysl-l-homme",         name: "L'Homme",                      family: "Woody",    image: "https://www.sephora.com/productimages/sku/s987917-main-zoom.jpg"  }, // ✅ Sephora
+  { id: "ysl-l-homme-le-parfum",name: "L'Homme Le Parfum",           family: "Woody",    image: "https://www.sephora.com/productimages/sku/s2353464-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-l-homme-intense", name: "L'Homme Intense",              family: "Woody",    image: "https://img.fragrancex.com/images/products/parent/medium/71420m.jpg" }, // ✅ FragranceX
+  { id: "ysl-l-homme-sport",   name: "L'Homme Sport",                family: "Fresh",    image: "https://img.fragrancex.com/images/products/parent/medium/71631m.jpg" }, // ✅ FragranceX
+  { id: "ysl-l-homme-ultime",  name: "L'Homme Ultime",               family: "Woody",    image: "https://img.fragrancex.com/images/products/parent/medium/73813m.jpg" }, // ✅ FragranceX
+  // ─── MYSLF COLLECTION ───────────────────────────────────────────────────────
+  { id: "ysl-myslf",      name: "MYSLF",                             family: "Woody",    image: "https://www.sephora.com/productimages/sku/s2706273-main-zoom.jpg" }, // ✅ Sephora
+  { id: "ysl-myslf-le-parfum", name: "MYSLF Le Parfum",             family: "Woody",    image: "https://www.sephora.com/productimages/sku/s2799930-main-zoom.jpg" }, // ✅ Sephora
+  // ─── KOUROS COLLECTION ──────────────────────────────────────────────────────
+  { id: "ysl-kouros",           name: "Kouros",                      family: "Woody",    image: "https://static-id.zacdn.com/p/yves-saint-laurent-3260-8421032-1.jpg" }, // ✅ Zalora ID
+  { id: "ysl-kouros-silver",    name: "Kouros Silver",               family: "Fresh",    image: "https://img.perfume.com/images/products/parent/medium/72176m.jpg" }, // ✅ Perfume.com CDN
+  { id: "ysl-kouros-fraicheur", name: "Kouros Fraîcheur",            family: "Fresh",    image: null }, // ❌ Discontinued, tidak ditemukan
+  { id: "ysl-kouros-summer",    name: "Kouros Summer",               family: "Fresh",    image: "https://img.fragrancex.com/images/products/parent/medium/60884m.jpg" }, // ✅ FragranceX
+  { id: "ysl-body-kouros",      name: "Body Kouros",                 family: "Fresh",    image: "https://img.fragrancex.com/images/products/parent/medium/777m.jpg" }, // ✅ FragranceX
+  // ─── OPIUM COLLECTION ───────────────────────────────────────────────────────
+  { id: "ysl-opium",           name: "Opium",                        family: "Oriental", image: "https://www.sephora.com/productimages/sku/s7757-main-zoom.jpg" }, // ✅ Sephora CA
+  { id: "ysl-opium-pour-homme",name: "Opium Pour Homme",             family: "Spicy",    image: "https://img.fragrancex.com/images/products/parent/medium/1011m.jpg" }, // ✅ FragranceX
+  // ─── CLASSIC / VINTAGE ──────────────────────────────────────────────────────
+  { id: "ysl-paris",       name: "Paris",                            family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/1036w.jpg" }, // ✅ FragranceX
+  { id: "ysl-yvresse",     name: "Yvresse",                          family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/1381w.jpg" }, // ✅ FragranceX
+  { id: "ysl-champagne",   name: "Champagne",                        family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/1381w.jpg" }, // ✅ FragranceX (= Yvresse)
+  { id: "ysl-cinema",      name: "Cinema",                           family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/60466w.jpg" }, // ✅ FragranceX
+  { id: "ysl-cinema-edp",  name: "Cinema EDP",                       family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/60466w.jpg" }, // ✅ FragranceX (sama)
+  { id: "ysl-jazz",        name: "Jazz",                             family: "Fresh",    image: "https://img.fragrancex.com/images/products/parent/medium/561m.jpg"  }, // ✅ FragranceX
+  { id: "ysl-manifesto",   name: "Manifesto",                        family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/69752w.jpg" }, // ✅ FragranceX
+  { id: "ysl-parisienne",  name: "Parisienne",                       family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/65593w.jpg" }, // ✅ FragranceX
+  { id: "ysl-saharienne",  name: "Saharienne",                       family: "Fresh",    image: "https://img.fragrancex.com/images/products/parent/medium/69273w.jpg" }, // ✅ FragranceX
+  { id: "ysl-elle",        name: "Elle",                             family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/65733w.jpg" }, // ✅ FragranceX
+  { id: "ysl-baby-doll",   name: "Baby Doll",                        family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/716w.jpg"  }, // ✅ FragranceX
+  { id: "ysl-in-love-again",name: "In Love Again",                   family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/48722w.jpg" }, // ✅ FragranceX
+  { id: "ysl-nu",          name: "Nu",                               family: "Fresh",    image: "https://img.fragrancex.com/images/products/parent/medium/993w.jpg"  }, // ✅ FragranceX
+  { id: "ysl-rive-gauche",  name: "Rive Gauche",                     family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/1110w.jpg" }, // ✅ FragranceX
+  // ─── M7 COLLECTION ──────────────────────────────────────────────────────────
+  { id: "ysl-m7",     name: "M7",                                    family: "Woody",    image: "https://img.fragrancex.com/images/products/parent/medium/905m.jpg"  }, // ✅ FragranceX
+  { id: "ysl-m7-oud", name: "M7 Oud Absolu",                         family: "Oriental", image: "https://img.fragrancex.com/images/products/parent/medium/70026m.jpg" }, // ✅ FragranceX
+  // ─── LE VESTIAIRE DES PARFUMS ───────────────────────────────────────────────
+  { id: "ysl-tuxedo",          name: "Tuxedo",                       family: "Woody",    image: "https://img.fragrancex.com/images/products/parent/medium/78733w.jpg" }, // ✅ FragranceX (Tuxedo Épices Patchouli)
+  { id: "ysl-supreme-bouquet", name: "Supreme Bouquet",              family: "Floral",   image: "https://img.fragrancex.com/images/products/parent/medium/79036w.jpg" }, // ✅ FragranceX
 ];
 
 // Scent family to slider mapping
