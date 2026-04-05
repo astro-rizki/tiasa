@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Crown, Sparkles } from "lucide-react";
+import { Crown } from "lucide-react";
 import { toast } from "sonner";
 
 const perfumes = [
@@ -8,7 +8,7 @@ const perfumes = [
     id: "magnoy",
     name: "Magnoy",
     image: "/images/blend/bottle1.png",
-    isFree: false
+    isFree: true
   },
   {
     id: "vulcain",
@@ -20,7 +20,7 @@ const perfumes = [
     id: "opoiky",
     name: "Opoiky",
     image: "/images/blend/bottle3.png",
-    isFree: false
+    isFree: true
   }
 ];
 
@@ -30,10 +30,6 @@ export default function PerfumeRecommendations() {
   const handleSelect = (perfume) => {
     if (perfume.id === selectedPerfume) {
       setSelectedPerfume(null);
-    } else if (!perfume.isFree && selectedPerfume !== null) {
-      toast("Upgrade to Premium", {
-        description: "Unlock this perfume with a Premium subscription"
-      });
     } else {
       setSelectedPerfume(perfume.id);
       toast.success(`${perfume.name} selected`);
@@ -48,14 +44,14 @@ export default function PerfumeRecommendations() {
       transition={{ delay: 0.4, duration: 0.5 }}
     >
       {/* Header */}
-      <div className="mb-4 text-center">
-        <div className="flex items-center justify-center gap-2 mb-1">
-          <Sparkles className="w-3.5 h-3.5 text-[#E0B23A]" strokeWidth={2} />
-          <h3 className="text-xs text-[#E0B23A] font-semibold uppercase tracking-wider">
+      <div className="mb-4">
+        <div className="flex items-center gap-2 mb-1">
+          <span className="text-[#E0B23A] text-base">✦</span>
+          <h3 className="font-serif-luxury text-base gold-text">
             Perfume based on your sensing results
           </h3>
         </div>
-        <p className="text-[10px] text-neutral-500 italic">
+        <p className="text-xs text-neutral-500 mb-5">
           Select one for free and purchase the other.
         </p>
       </div>
@@ -86,16 +82,10 @@ export default function PerfumeRecommendations() {
                 />
               </div>
               
-              {/* Crown or FREE badge */}
-              {perfume.isFree ? (
-                <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-[#E0B23A] text-black text-[8px] font-bold px-2 py-0.5 rounded-full">
-                  FREE
-                </div>
-              ) : selectedPerfume !== null && (
-                <div className="absolute top-0 right-0 w-5 h-5 rounded-full bg-[#E0B23A] flex items-center justify-center">
-                  <Crown className="w-3 h-3 text-black" strokeWidth={2} fill="currentColor" />
-                </div>
-              )}
+              {/* FREE badge */}
+              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-[#E0B23A] text-black text-[8px] font-bold px-2 py-0.5 rounded-full">
+                FREE
+              </div>
             </div>
 
             {/* Crown logo below */}
