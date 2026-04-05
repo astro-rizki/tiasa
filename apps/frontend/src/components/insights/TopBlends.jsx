@@ -125,7 +125,7 @@ export default function TopBlends() {
             </div>
 
             {/* YSL Recommendations */}
-            <YslRecommendations blendVector={blend.blend_vector} />
+            <YslRecommendations blendVector={blend.blend_vector} blendId={blend.blend_id} />
 
             {/* Actions */}
             <div className="flex items-center gap-2 mt-4">
