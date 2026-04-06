@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 
-const isDeviceMode = new URLSearchParams(window.location.search).has('device');
+const deviceToken = new URLSearchParams(window.location.search).get('device');
+const isDeviceMode = deviceToken !== null && deviceToken !== '';
 
 export function useDeviceSocket() {
   const ws = useRef(null);
@@ -13,7 +14,9 @@ export function useDeviceSocket() {
 
     function connect() {
       if (!reconnect.current) return;
-      const socket = new WebSocket(import.meta.env.VITE_WS_URL);
+      const baseUrl = import.meta.env.VITE_WS_URL;
+      const url = `${baseUrl}?token=${encodeURIComponent(deviceToken)}`;
+      const socket = new WebSocket(url);
       ws.current = socket;
 
       socket.onmessage = (event) => {
